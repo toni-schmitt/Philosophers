@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 21:53:12 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/03 22:04:56 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,10 @@ typedef struct s_data
 // FUNCTIONS
 
 // UTILITIES
+
+// PRINT UTILS
+
+void	prnt_error(char *message, bool exit_prog);
 
 // STRING UTILS
 
