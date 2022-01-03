@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 21:43:24 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/03 21:53:12 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
 
@@ -103,5 +104,15 @@ typedef struct s_data
 	t_thread	*philos_threads;
 	t_mutex		*forks;
 }	t_data;
+
+// FUNCTIONS
+
+// UTILITIES
+
+// STRING UTILS
+
+void	*ft_calloc(size_t count, size_t size);
+uint	atoui(char *str);
+int		ft_strlen(char *str);
 
 #endif
