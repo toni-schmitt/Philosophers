@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:46:47 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 22:14:03 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/03 23:32:57 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_data	*parse_input(int argc, char *argv[])
 	data = ft_calloc(1, sizeof(*data));
 	if (data == NULL)
 		return (NULL);
-	data->prog_args = get_prog_args(argc, argv);
+	data->prog_args = get_prog_args(argc, argv + 1);
 	if (data->prog_args == NULL)
 		return (NULL);
 	return (data);
