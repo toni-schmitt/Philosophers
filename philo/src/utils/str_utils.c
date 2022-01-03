@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:51:12 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 21:53:08 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/03 22:11:30 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static bool	is_space(char c)
 	return (false);
 }
 
-static bool	is_digit(char c)
+bool	is_digit(char c)
 {
 	if (c >= '0' && c <= '9')
 		return (true);

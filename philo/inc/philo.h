@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 22:04:56 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/03 22:11:26 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@
 # include <stdio.h>
 # include <string.h>
 # include <pthread.h>
+# include <limits.h>
 # include <sys/time.h>
+
+// DEFINES
+
+# define PHILO_CANT_STOP_EATING UINT_MAX
 
 // TYPE DEFINITIONS
 
@@ -116,6 +121,7 @@ void	prnt_error(char *message, bool exit_prog);
 // STRING UTILS
 
 void	*ft_calloc(size_t count, size_t size);
+bool	is_digit(char c);
 uint	atoui(char *str);
 int		ft_strlen(char *str);
 
