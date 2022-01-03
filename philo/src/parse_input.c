@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:46:47 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 22:12:42 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/03 22:14:03 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ uint	*get_prog_args(int argc, char *argv[])
 			prnt_error("Error: Argument out of range\n", true);
 			return (NULL);
 		}
-		prog_args[i] = atoul(argv[i]);
+		prog_args[i] = atoui(argv[i]);
 		i++;
 	}
 	if (argc != 6)
@@ -62,5 +62,5 @@ t_data	*parse_input(int argc, char *argv[])
 	data->prog_args = get_prog_args(argc, argv);
 	if (data->prog_args == NULL)
 		return (NULL);
-	
+	return (data);
 }

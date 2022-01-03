@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 22:11:26 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/03 22:14:34 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ typedef struct s_data
 }	t_data;
 
 // FUNCTIONS
+
+t_data	*parse_input(int argc, char *argv[]);
 
 // UTILITIES
 

@@ -6,7 +6,7 @@
 #    By: toni <toni@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 03:16:14 by toni              #+#    #+#              #
-#    Updated: 2022/01/03 03:40:29 by toni             ###   ########.fr        #
+#    Updated: 2022/01/03 23:26:23 by toni             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,14 @@ BUILD_PATH = ./build/
 OBJ_PATH = $(BUILD_PATH)obj/
 
 # FILES
-SRC := main.c
+SRC := main.c parse_input.c \
+		utils/str_utils.c utils/prnt_utils.c
 SRC := $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ := $(patsubst $(SRC_PATH)%.c, $(OBJ_PATH)%.o, $(SRC))
+
+# DEBUG RULE
+debug: $(eval CFLAGS+=-g) re
 
 # COMPILATION RULES
 all: $(BIN)
