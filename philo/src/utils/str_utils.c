@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:51:12 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 22:11:30 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/03 23:43:20 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-static bool	is_space(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\n'
-		|| c == '\v' || c == '\f' || c == '\r')
-		return (true);
-	return (false);
-}
-
 bool	is_digit(char c)
 {
 	if (c >= '0' && c <= '9')
@@ -42,7 +34,8 @@ uint	atoui(char *str)
 	uint	n;
 
 	n = 0;
-	while (is_space(*str))
+	while (*str == ' ' || *str == '\t' || *str == '\n' \
+	|| *str == '\v' || *str == '\f' || *str == '\r')
 		str++;
 	while (is_digit(*str))
 	{
@@ -50,6 +43,15 @@ uint	atoui(char *str)
 		str++;
 	}
 	return (n);
+}
+
+void	*ft_free(void **ptr)
+{
+	if (ptr == NULL)
+		return (NULL);
+	free(*ptr);
+	*ptr = NULL;
+	return (NULL);
 }
 
 void	*ft_calloc(size_t count, size_t size)

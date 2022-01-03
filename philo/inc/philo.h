@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 22:14:34 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/03 23:43:30 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,6 @@ void	*ft_calloc(size_t count, size_t size);
 bool	is_digit(char c);
 uint	atoui(char *str);
 int		ft_strlen(char *str);
+void	*ft_free(void **ptr);
 
 #endif
