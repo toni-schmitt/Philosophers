@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 23:43:30 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/03 23:59:39 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ typedef struct s_data
 // FUNCTIONS
 
 t_data	*parse_input(int argc, char *argv[]);
+int		init_philos(t_data *data);
+void	*thread_woker(void *arg);
 
 // UTILITIES
 
