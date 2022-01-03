@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 04:09:37 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/03 21:43:24 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,27 +38,31 @@ typedef struct s_time
 	struct timeval	val;
 }	t_time;
 
+typedef enum e_sh_data_type
+{
+	VOID_P,
+	INT,
+	BOOL,
+	T_TIME,
+}	t_sh_data_type;
+
+typedef union u_shared_datas_data
+{
+	void	*p;
+	int		i;
+	bool	b;
+	t_time	t;
+}	t_sh_data;
+
 /**
  * @brief  For accessing data safely through threads with mutexes
  * @note   Always check for type of data!
  */
 typedef struct s_shared_data
 {
-	enum
-	{
-		VOID_P,
-		INT,
-		BOOL,
-		T_TIME,
-	}	e_type;
-	union u_data
-	{
-		void	*p;
-		int		i;
-		bool	b;
-		t_time	t;
-	};
-	t_mutex	mutex;
+	t_sh_data_type	type;
+	t_sh_data		data;
+	t_mutex			mutex;
 }	t_shared;
 
 /**
