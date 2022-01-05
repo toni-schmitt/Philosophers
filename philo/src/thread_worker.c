@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 20:03:08 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 20:27:03 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	check_dead(t_data *data)
 					pthread_mutex_unlock(&data->philos_data[i].finished_mutex);
 					data->philo_died = true;
 					join_threads(data->philos_data);
-					philo_print("is dead", i);
+					philo_print("is dead", i + 1);
 					return ;
 				}
 				pthread_mutex_unlock(&data->philos_data[i].finished_mutex);
