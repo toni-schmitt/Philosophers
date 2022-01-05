@@ -6,16 +6,16 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:02 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 15:08:31 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 15:13:30 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-#define PHILO_FORK "has taken a fork\n"
-#define PHILO_EAT "is eating\n"
-#define PHILO_SLEEP "is sleeping\n"
-#define PHILO_THINK "is thinking\n"
+#define PHILO_FORK "has taken a fork"
+#define PHILO_EAT "is eating"
+#define PHILO_SLEEP "is sleeping"
+#define PHILO_THINK "is thinking"
 
 t_time	philo_eat(t_philo *philo)
 {
