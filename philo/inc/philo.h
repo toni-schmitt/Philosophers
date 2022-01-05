@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 14:56:18 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 15:01:49 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ t_time	philo_think(t_philo *philo);
 // PRINT UTILS
 
 void	prnt_error(char *message, bool exit_prog);
+t_time	philo_print(char *message, uint philo_id);
 
 // STRING UTILS
 
