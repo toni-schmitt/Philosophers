@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:48 by toni              #+#    #+#             */
-/*   Updated: 2022/01/04 00:00:00 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 14:50:06 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char *argv[])
 	data = parse_input(argc, argv);
 	if (data == NULL)
 		return (EXIT_FAILURE);
+	set_data(data);
 	if (init_philos(data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
