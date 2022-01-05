@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 20:43:12 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 21:46:37 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void	*philo_routine(t_philo *philo);
 // PHILO ACTIONS
 
 t_time	philo_eat(t_philo *philo);
-void	give_forks(t_mutex *left, t_mutex *right);
 t_time	philo_sleep(t_philo *philo);
 t_time	philo_think(t_philo *philo);
 
