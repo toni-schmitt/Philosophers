@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 19:49:05 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 20:03:08 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ static void	join_threads(t_philo *philos)
 	i = 0;
 	while (i < get_data()->prog_args[no_of_philos])
 	{
-		fprintf(stderr, "Attempting to join thread %d\n", i);
 		if (pthread_join(philos[i].philos_thread, NULL) != 0)
 			prnt_error("Failed to join thread", true);
-		fprintf(stderr, "Thread %d joined\n", i);
 		i++;
 	}
 }
@@ -73,7 +71,6 @@ static void	check_dead(t_data *data)
 				if (!data->philos_data[i].finished_eating)
 				{
 					pthread_mutex_unlock(&data->philos_data[i].finished_mutex);
-					fprintf(stderr, "Philo %d is dead, setting data->philo_died to true and attempting to join threads\n", i);
 					data->philo_died = true;
 					join_threads(data->philos_data);
 					philo_print("is dead", i);
