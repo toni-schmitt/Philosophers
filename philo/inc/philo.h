@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 23:59:39 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/04 00:05:14 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef pthread_t		t_thread;
  */
 typedef struct s_time
 {
-	u_int64_t		ms;
+	ulong			ms;
 	struct timeval	val;
 }	t_time;
 
@@ -102,7 +102,7 @@ typedef struct s_data
 {
 	// PROGRAM-RELATED DATA
 	uint		*prog_args;
-	t_shared	start_time;
+	t_time		start_time;
 	t_mutex		print_mutex;
 	// PHILO-RELATED DATA
 	t_philo		*philos_data;
@@ -129,5 +129,17 @@ bool	is_digit(char c);
 uint	atoui(char *str);
 int		ft_strlen(char *str);
 void	*ft_free(void **ptr);
+
+// TIME UTILS
+
+ulong	timeval_to_ms(struct timeval time);
+t_time	get_curr_time(void);
+t_time	get_start_time(void);
+void	philo_thread_sleep_ms(ulong ms);
+
+// GETTER / SETTER
+
+t_data	*get_data(void);
+void	set_data(t_data *data);
 
 #endif
