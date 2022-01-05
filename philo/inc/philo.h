@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 19:14:11 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 19:46:33 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ typedef struct s_shared_data
 typedef struct s_philo
 {
 	uint		id;
-	uint		meals_eaten;
+	bool		finished_eating;
+	t_mutex		finished_mutex;
 	t_time		last_meal;
 	t_mutex		*left_fork;
 	t_mutex		*right_fork;

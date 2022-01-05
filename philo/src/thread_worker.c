@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 19:06:12 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 19:49:05 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ static void	join_threads(t_philo *philos)
 	i = 0;
 	while (i < get_data()->prog_args[no_of_philos])
 	{
+		fprintf(stderr, "Attempting to join thread %d\n", i);
 		if (pthread_join(philos[i].philos_thread, NULL) != 0)
 			prnt_error("Failed to join thread", true);
+		fprintf(stderr, "Thread %d joined\n", i);
 		i++;
 	}
 }
@@ -67,14 +69,17 @@ static void	check_dead(t_data *data)
 		{
 			if (get_curr_time().ms - data->philos_data[i].last_meal.ms >= data->prog_args[time_to_die])
 			{
-				if (data->prog_args[no_of_min_meals_given] == true \
-				&& data->philos_data->meals_eaten <= data->prog_args[no_of_min_meals])
+				pthread_mutex_lock(&data->philos_data[i].finished_mutex);
+				if (!data->philos_data[i].finished_eating)
 				{
+					pthread_mutex_unlock(&data->philos_data[i].finished_mutex);
+					fprintf(stderr, "Philo %d is dead, setting data->philo_died to true and attempting to join threads\n", i);
 					data->philo_died = true;
 					join_threads(data->philos_data);
 					philo_print("is dead", i);
 					return ;
 				}
+				pthread_mutex_unlock(&data->philos_data[i].finished_mutex);
 			}
 			i++;
 		}
@@ -86,6 +91,7 @@ void	*thread_woker(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
+	data->philo_died = false;
 	if (create_philo_threads(data->philos_data, data->prog_args[no_of_philos]) == EXIT_FAILURE)
 		return ((void *)EXIT_FAILURE);
 	while (get_data()->waiting_in_queue != get_data()->prog_args[no_of_philos])
