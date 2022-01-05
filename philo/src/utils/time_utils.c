@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 00:02:11 by toni              #+#    #+#             */
-/*   Updated: 2022/01/04 00:02:35 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 19:08:39 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	philo_thread_sleep_ms(ulong ms)
 	end = get_curr_time().ms + ms;
 	while (get_curr_time().ms <= end)
 	{
-		usleep(10);
+		if (get_data()->philo_died)
+			break ;
+		usleep(1);
 	}
 }

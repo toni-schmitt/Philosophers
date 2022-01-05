@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 15:54:31 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 19:06:12 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 static void	*philo_queue(void *arg)
 {
 	t_philo		*philo;
-	static uint	waiting_in_queue = 0;
 
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(&get_data()->philo_queue);
 	get_data()->start_time = get_curr_time();
-	waiting_in_queue++;
+	get_data()->waiting_in_queue++;
 	pthread_mutex_unlock(&get_data()->philo_queue);
-	while (waiting_in_queue != get_data()->prog_args[no_of_philos])
+	while (get_data()->waiting_in_queue != get_data()->prog_args[no_of_philos])
 		;
 	return (philo_routine(philo));
 }
@@ -44,9 +43,42 @@ static int	create_philo_threads(t_philo *philos, uint no_of_philos)
 	return (EXIT_SUCCESS);
 }
 
+static void	join_threads(t_philo *philos)
+{
+	uint	i;
+
+	i = 0;
+	while (i < get_data()->prog_args[no_of_philos])
+	{
+		if (pthread_join(philos[i].philos_thread, NULL) != 0)
+			prnt_error("Failed to join thread", true);
+		i++;
+	}
+}
+
 static void	check_dead(t_data *data)
 {
-	(void)data;
+	uint	i;
+
+	while (true)
+	{
+		i = 0;
+		while (i < data->prog_args[no_of_philos])
+		{
+			if (get_curr_time().ms - data->philos_data[i].last_meal.ms >= data->prog_args[time_to_die])
+			{
+				if (data->prog_args[no_of_min_meals_given] == true \
+				&& data->philos_data->meals_eaten <= data->prog_args[no_of_min_meals])
+				{
+					data->philo_died = true;
+					join_threads(data->philos_data);
+					philo_print("is dead", i);
+					return ;
+				}
+			}
+			i++;
+		}
+	}
 }
 
 void	*thread_woker(void *arg)
@@ -56,6 +88,9 @@ void	*thread_woker(void *arg)
 	data = (t_data *)arg;
 	if (create_philo_threads(data->philos_data, data->prog_args[no_of_philos]) == EXIT_FAILURE)
 		return ((void *)EXIT_FAILURE);
+	while (get_data()->waiting_in_queue != get_data()->prog_args[no_of_philos])
+		;
+	philo_thread_sleep_ms(get_data()->prog_args[time_to_die] / 2);
 	check_dead(data);
 	return (NULL);
 }

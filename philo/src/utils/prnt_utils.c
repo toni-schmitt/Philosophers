@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:55:43 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 15:01:35 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 19:09:50 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_time	philo_print(char *message, uint philo_id)
 
 	pthread_mutex_lock(&get_data()->print_mutex);
 	current_time = get_curr_time();
+	if (get_data()->philo_died)
+		return (current_time);
 	printf("%ld %d %s\n", current_time.ms - get_data()->start_time.ms, philo_id, message);
 	pthread_mutex_unlock(&get_data()->print_mutex);
 	return (current_time);
