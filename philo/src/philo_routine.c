@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:11 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 20:33:34 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 20:39:13 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*philo_routine(t_philo *philo)
 	philo->last_meal = get_data()->start_time;
 	meals_eaten = 0;
 	philo_think(philo);
+	if (philo->id % 2 == 0)
+		usleep(10);
 	while (true)
 	{
 		philo->last_meal = philo_eat(philo);
