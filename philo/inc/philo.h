@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 15:01:49 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 15:33:28 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_philo
 	t_shared	last_meal;
 	t_mutex		*left_fork;
 	t_mutex		*right_fork;
+	t_thread	philos_thread;
 }	t_philo;
 
 /**
@@ -106,7 +107,6 @@ typedef struct s_data
 	t_mutex		print_mutex;
 	// PHILO-RELATED DATA
 	t_philo		*philos_data;
-	t_thread	*philos_threads;
 	t_mutex		*forks;
 }	t_data;
 
