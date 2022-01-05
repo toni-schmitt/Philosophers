@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:34:16 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 19:54:17 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 20:38:59 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static int	create_philos_data(t_data *data)
 		else
 			data->philos_data[i].left_fork = &data->forks[i - 1];
 		data->philos_data[i].right_fork = &data->forks[i];
-		if (pthread_mutex_init(&data->philos_data[i].finished_mutex, NULL) != 0)
+		if (pthread_mutex_init(&data->philos_data[i].finished_mutex, NULL) != 0 \
+		|| pthread_mutex_init(&data->philos_data[i].eating_mutex, NULL) != 0)
 		{
 			prnt_error(ERROR_MUTEX_INIT, false);
 			ft_free((void *)&data->philos_data);

@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 19:46:33 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 20:43:12 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_philo
 	uint		id;
 	bool		finished_eating;
 	t_mutex		finished_mutex;
+	bool		is_eating;
+	t_mutex		eating_mutex;
 	t_time		last_meal;
 	t_mutex		*left_fork;
 	t_mutex		*right_fork;

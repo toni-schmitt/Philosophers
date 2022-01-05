@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 20:33:32 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 20:43:12 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,16 @@ static bool	no_one_hungry(t_philo *philos, uint no_of_philos)
 	return (true);
 }
 
+static bool	philo_is_eating(t_philo philo)
+{
+	bool	retval;
+
+	pthread_mutex_lock(&philo.eating_mutex);
+	retval = philo.is_eating;	
+	pthread_mutex_unlock(&philo.eating_mutex);
+	return (retval);
+}
+
 static void	check_dead(t_data *data)
 {
 	uint	i;
@@ -79,18 +89,21 @@ static void	check_dead(t_data *data)
 		i = 0;
 		while (i < data->prog_args[no_of_philos])
 		{
-			if (get_curr_time().ms - data->philos_data[i].last_meal.ms >= data->prog_args[time_to_die])
+			if (!philo_is_eating(data->philos_data[i]))
 			{
-				pthread_mutex_lock(&data->philos_data[i].finished_mutex);
-				if (!data->philos_data[i].finished_eating)
+				if (get_curr_time().ms - data->philos_data[i].last_meal.ms >= data->prog_args[time_to_die])
 				{
+					pthread_mutex_lock(&data->philos_data[i].finished_mutex);
+					if (!data->philos_data[i].finished_eating)
+					{
+						pthread_mutex_unlock(&data->philos_data[i].finished_mutex);
+						data->philo_died = true;
+						join_threads(data->philos_data);
+						philo_print("is dead", i + 1);
+						return ;
+					}
 					pthread_mutex_unlock(&data->philos_data[i].finished_mutex);
-					data->philo_died = true;
-					join_threads(data->philos_data);
-					philo_print("is dead", i + 1);
-					return ;
 				}
-				pthread_mutex_unlock(&data->philos_data[i].finished_mutex);
 			}
 			i++;
 		}
