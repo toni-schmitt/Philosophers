@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:34:16 by toni              #+#    #+#             */
-/*   Updated: 2022/01/04 00:00:39 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 15:12:38 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_mutex	*create_forks(uint no_of_forks)
 		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	return (forks);
 }
 
 static int	create_mutexes(t_data *data)
