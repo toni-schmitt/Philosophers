@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:34:16 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 16:28:05 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 19:23:45 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_mutex	*create_forks(uint no_of_forks)
 
 static int	create_mutexes(t_data *data)
 {
-	data->forks = create_forks(data->prog_args[no_of_philos] / 2);
+	data->forks = create_forks(data->prog_args[no_of_philos]);
 	if (data->forks == NULL)
 		return (EXIT_FAILURE);
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0 \
@@ -61,7 +61,7 @@ static int	create_philos_data(t_data *data)
 	i = 0;
 	while (i < data->prog_args[no_of_philos])
 	{
-		data->philos_data[i].id = i;
+		data->philos_data[i].id = i + 1;
 		if (i == 0)
 			data->philos_data[i].left_fork = &data->forks[data->prog_args[no_of_philos] - 1];
 		else
