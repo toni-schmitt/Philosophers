@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:02 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 21:52:30 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 00:29:55 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	give_forks(uint philo_id, t_mutex *left, t_mutex *right)
 	{
 		pthread_mutex_unlock(right);
 	}
+	(void)philo_id;
 }
 
 static int	take_forks(uint philo_id, t_mutex *left, t_mutex *right)
@@ -82,7 +83,8 @@ t_time	philo_eat(t_philo *philo)
 	if (take_forks(philo->id, philo->left_fork, philo->right_fork) == PHILO_DEAD)
 		return (get_curr_time());
 	update_eating(philo, true);
-	print_timestamp = philo_print(PHILO_EAT, philo->id);
+	philo->last_meal = philo_print(PHILO_EAT, philo->id);
+	print_timestamp = philo->last_meal;
 	philo_thread_sleep_ms(get_data()->prog_args[time_to_eat]);
 	update_eating(philo, false);
 	give_forks(philo->id, philo->left_fork, philo->right_fork);
