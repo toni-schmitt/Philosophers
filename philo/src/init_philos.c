@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:34:16 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 15:46:01 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 16:28:05 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,6 @@ static int	create_philos_data(t_data *data)
 	while (i < data->prog_args[no_of_philos])
 	{
 		data->philos_data[i].id = i;
-		data->philos_data[i].last_meal.type = T_TIME;
-		if (pthread_mutex_init(&data->philos_data[i].last_meal.mutex, NULL) != 0)
-		{
-			ft_free((void *)&data->philos_data);
-			prnt_error(ERROR_MUTEX_INIT, false);
-			return (EXIT_FAILURE);
-		}
 		if (i == 0)
 			data->philos_data[i].left_fork = &data->forks[data->prog_args[no_of_philos] - 1];
 		else
