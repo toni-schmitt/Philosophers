@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 20:27:03 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 20:33:32 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,20 @@ static void	join_threads(t_philo *philos)
 	}
 }
 
+static bool	no_one_hungry(t_philo *philos, uint no_of_philos)
+{
+	uint	i;
+
+	i = 0;
+	while (i < no_of_philos)
+	{
+		if (philos[i].finished_eating == false)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
 static void	check_dead(t_data *data)
 {
 	uint	i;
@@ -79,6 +93,11 @@ static void	check_dead(t_data *data)
 				pthread_mutex_unlock(&data->philos_data[i].finished_mutex);
 			}
 			i++;
+		}
+		if (no_one_hungry(data->philos_data, data->prog_args[no_of_philos]))
+		{
+			join_threads(data->philos_data);
+			return ;
 		}
 	}
 }
