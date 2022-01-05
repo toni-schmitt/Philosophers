@@ -6,7 +6,7 @@
 #    By: toni <toni@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 03:16:14 by toni              #+#    #+#              #
-#    Updated: 2022/01/03 23:57:31 by toni             ###   ########.fr        #
+#    Updated: 2022/01/05 14:52:25 by toni             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ BUILD_PATH = ./build/
 OBJ_PATH = $(BUILD_PATH)obj/
 
 # FILES
-SRC := main.c parse_input.c init_philos.c thread_worker.c \
+SRC := main.c parse_input.c init_philos.c thread_worker.c philo_actions.c\
 		utils/str_utils.c utils/prnt_utils.c
 SRC := $(addprefix $(SRC_PATH), $(SRC))
 
