@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 15:33:28 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 15:51:05 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_data
 	// PHILO-RELATED DATA
 	t_philo		*philos_data;
 	t_mutex		*forks;
+	t_mutex		philo_queue;
 }	t_data;
 
 // FUNCTIONS
@@ -118,7 +119,7 @@ int		init_philos(t_data *data);
 // THREAD ROUTINES
 
 void	*thread_woker(void *arg);
-void	*philo_routine(void *arg);
+void	*philo_routine(t_philo *philo);
 
 // PHILO ACTIONS
 

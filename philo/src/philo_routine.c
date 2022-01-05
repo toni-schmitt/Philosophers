@@ -6,17 +6,14 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:11 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 14:57:14 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 15:50:56 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*philo_routine(void *arg)
+void	*philo_routine(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
 	(void)philo;
 	return (NULL);
 }

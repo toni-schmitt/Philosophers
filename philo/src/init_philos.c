@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:34:16 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 15:12:38 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 15:46:01 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	create_mutexes(t_data *data)
 	data->forks = create_forks(data->prog_args[no_of_philos] / 2);
 	if (data->forks == NULL)
 		return (EXIT_FAILURE);
-	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
+	if (pthread_mutex_init(&data->print_mutex, NULL) != 0 \
+	|| pthread_mutex_init(&data->philo_queue, NULL) != 0)
 	{
 		prnt_error(ERROR_MUTEX_INIT, false);
 		ft_free((void *)&data->forks);
