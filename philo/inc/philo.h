@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 14:54:14 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 14:56:18 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,11 @@ typedef struct s_data
 
 t_data	*parse_input(int argc, char *argv[]);
 int		init_philos(t_data *data);
+
+// THREAD ROUTINES
+
 void	*thread_woker(void *arg);
+void	*philo_routine(void *arg);
 
 // PHILO ACTIONS
 
