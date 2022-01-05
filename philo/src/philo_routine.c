@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:11 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 19:49:44 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 20:08:26 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	*philo_routine(t_philo *philo)
 	while (true)
 	{
 		philo->last_meal = philo_eat(philo);
+		if (get_data()->philo_died)
+			return (PTHREAD_CANCELED);
 		meals_eaten++;
 		if (get_data()->prog_args[no_of_min_meals_given])
 		{
@@ -33,7 +35,11 @@ void	*philo_routine(t_philo *philo)
 			}
 		}
 		philo_sleep(philo);
+		if (get_data()->philo_died)
+			return (PTHREAD_CANCELED);
 		philo_think(philo);
+		if (get_data()->philo_died)
+			return (PTHREAD_CANCELED);
 		if (philo->finished_eating)
 		{
 			fprintf(stderr, "Philo %d finished eating\n", philo->id);
