@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 00:05:20 by toni              #+#    #+#             */
-/*   Updated: 2022/01/04 00:06:25 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 20:02:06 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,10 @@ void	set_data(t_data *data)
 
 t_data	*get_data(void)
 {
-	return (_get_data(NULL, false));
+	t_data	*data;
+
+	data = _get_data(NULL, false);
+	if (data == NULL)
+		prnt_error("Warning: Address cannot be accessed\n", false);
+	return (data);
 }
