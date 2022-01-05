@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 15:51:05 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 16:29:14 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,6 @@
 # include <pthread.h>
 # include <limits.h>
 # include <sys/time.h>
-
-// DEFINES
-
-# define PHILO_CANT_STOP_EATING UINT_MAX
 
 // TYPE DEFINITIONS
 
@@ -78,7 +74,7 @@ typedef struct s_philo
 {
 	uint		id;
 	uint		meals_eaten;
-	t_shared	last_meal;
+	t_time		last_meal;
 	t_mutex		*left_fork;
 	t_mutex		*right_fork;
 	t_thread	philos_thread;
@@ -94,6 +90,7 @@ enum e_arg_index
 	time_to_eat,
 	time_to_sleep,
 	no_of_min_meals,
+	no_of_min_meals_given
 };
 
 /**
@@ -108,6 +105,7 @@ typedef struct s_data
 	// PHILO-RELATED DATA
 	t_philo		*philos_data;
 	t_mutex		*forks;
+	uint		waiting_in_queue;
 	t_mutex		philo_queue;
 }	t_data;
 

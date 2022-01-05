@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:46:47 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 23:32:57 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 16:29:08 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ uint	*get_prog_args(int argc, char *argv[])
 		i++;
 	}
 	if (argc != 6)
-		prog_args[no_of_min_meals] = PHILO_CANT_STOP_EATING;
+		prog_args[no_of_min_meals_given] = true;
+	else
+		prog_args[no_of_min_meals_given] = false;
 	return (prog_args);
 }
 
