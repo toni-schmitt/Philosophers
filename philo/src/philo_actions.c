@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:02 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 20:43:13 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 21:52:30 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 #define PHILO_THINK "is thinking"
 
 #define PHILO_DEAD 125
+
+static void	give_forks(uint philo_id, t_mutex *left, t_mutex *right)
+{
+	if (left != NULL)
+	{
+		pthread_mutex_unlock(left);
+	}
+	if (right != NULL)
+	{
+		pthread_mutex_unlock(right);
+	}
+}
 
 static int	take_forks(uint philo_id, t_mutex *left, t_mutex *right)
 {
@@ -31,26 +43,18 @@ static int	take_forks(uint philo_id, t_mutex *left, t_mutex *right)
 	pthread_mutex_lock(left);
 	if (get_data()->philo_died)
 	{
-		give_forks(left, NULL);
+		give_forks(philo_id, left, NULL);
 		return (PHILO_DEAD);
 	}
 	philo_print(PHILO_FORK, philo_id);
 	pthread_mutex_lock(right);
 	if (get_data()->philo_died)
 	{
-		give_forks(left, right);
+		give_forks(philo_id, left, right);
 		return (PHILO_DEAD);
 	}
 	philo_print(PHILO_FORK, philo_id);
 	return (EXIT_SUCCESS);
-}
-
-void	give_forks(t_mutex *left, t_mutex *right)
-{
-	if (left != NULL)
-		pthread_mutex_unlock(left);
-	if (right != NULL)
-		pthread_mutex_unlock(right);
 }
 
 static void	update_eating(t_philo *philo, bool new)
@@ -60,20 +64,28 @@ static void	update_eating(t_philo *philo, bool new)
 	pthread_mutex_unlock(&philo->eating_mutex);
 }
 
+static t_time	handle_lonely_philo(t_philo *philo)
+{
+	pthread_mutex_lock(philo->left_fork);
+	philo_print(PHILO_FORK, philo->id);
+	philo_thread_sleep_ms(get_data()->prog_args[time_to_die]);
+	pthread_mutex_unlock(philo->right_fork);
+	return (get_data()->start_time);
+}
+
 t_time	philo_eat(t_philo *philo)
 {
 	t_time	print_timestamp;
 
-	update_eating(philo, true);
+	if (philo->left_fork == philo->right_fork)
+		return (handle_lonely_philo(philo));
 	if (take_forks(philo->id, philo->left_fork, philo->right_fork) == PHILO_DEAD)
-	{
-		update_eating(philo, false);
 		return (get_curr_time());
-	}
+	update_eating(philo, true);
 	print_timestamp = philo_print(PHILO_EAT, philo->id);
 	philo_thread_sleep_ms(get_data()->prog_args[time_to_eat]);
-	give_forks(philo->left_fork, philo->right_fork);
 	update_eating(philo, false);
+	give_forks(philo->id, philo->left_fork, philo->right_fork);
 	return (print_timestamp);
 }
 
