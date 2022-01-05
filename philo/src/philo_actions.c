@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:02 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 20:00:39 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 20:08:51 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static int	take_forks(uint philo_id, t_mutex *left, t_mutex *right)
 		prnt_error("Fatal error: Address cannot be accessed\n", true);
 		return (EXIT_FAILURE);
 	}
+	if (get_data()->philo_died)
+		return (PHILO_DEAD);
 	pthread_mutex_lock(left);
 	if (get_data()->philo_died)
 	{
