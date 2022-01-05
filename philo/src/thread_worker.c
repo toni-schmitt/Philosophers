@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 15:51:25 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/05 15:54:31 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	*philo_queue(void *arg)
 	pthread_mutex_lock(&get_data()->philo_queue);
 	get_data()->start_time = get_curr_time();
 	waiting_in_queue++;
-	pthread_mutex_lock(&get_data()->philo_queue);
+	pthread_mutex_unlock(&get_data()->philo_queue);
 	while (waiting_in_queue != get_data()->prog_args[no_of_philos])
 		;
 	return (philo_routine(philo));
