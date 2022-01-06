@@ -6,11 +6,22 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:11 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:46:22 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:56:46 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	*philo_doze(t_philo *philo)
+{
+	philo_sleep(philo);
+	if (get_data()->philo_died)
+		return (PTHREAD_CANCELED);
+	philo_think(philo);
+	if (get_data()->philo_died)
+		return (PTHREAD_CANCELED);
+	return (NULL);
+}
 
 void	*philo_routine(t_philo *philo)
 {
@@ -21,16 +32,10 @@ void	*philo_routine(t_philo *philo)
 	meals_eaten = 0;
 	philo_think(philo);
 	if (philo->id % 2 == 0)
-	{
-		// if (get_data()->prog_args[no_of_philos] > 10)
-		// 	usleep(10000);
-		// else
-		// 	usleep(5000);
 		usleep(5000);
-	}
 	while (true)
 	{
-		philo->last_meal = philo_eat(philo);
+		philo_eat(philo);
 		if (get_data()->philo_died)
 			return (PTHREAD_CANCELED);
 		if ((no_of_min_meals_given) && (++meals_eaten >= no_of_min_meals))
@@ -39,11 +44,7 @@ void	*philo_routine(t_philo *philo)
 			philo->finished_eating = true;
 			pthread_mutex_unlock(&philo->finished_mutex);
 		}
-		philo_sleep(philo);
-		if (get_data()->philo_died)
-			return (PTHREAD_CANCELED);
-		philo_think(philo);
-		if (get_data()->philo_died)
+		if (philo_doze(philo) == PTHREAD_CANCELED)
 			return (PTHREAD_CANCELED);
 		if (philo->finished_eating)
 			return (NULL);

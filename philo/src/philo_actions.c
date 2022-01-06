@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:02 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:45:45 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:56:31 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,33 +74,29 @@ static t_time	handle_lonely_philo(t_philo *philo)
 	return (get_data()->start_time);
 }
 
-t_time	philo_eat(t_philo *philo)
+void	philo_eat(t_philo *philo)
 {
-	t_time	print_timestamp;
-
 	if (philo->left_fork == philo->right_fork)
-		return (handle_lonely_philo(philo));
+	{
+		handle_lonely_philo(philo);
+		return ;
+	}
 	if (take_forks(philo->id, philo->left_fork, philo->right_fork) == 125)
-		return (get_curr_time());
+		return ;
 	update_eating(philo, true);
 	philo->last_meal = philo_print(PHILO_EAT, philo->id);
-	print_timestamp = philo->last_meal;
 	philo_thread_sleep_ms(get_data()->prog_args[time_to_eat]);
 	update_eating(philo, false);
 	give_forks(philo->id, philo->left_fork, philo->right_fork);
-	return (print_timestamp);
 }
 
-t_time	philo_sleep(t_philo *philo)
+void	philo_sleep(t_philo *philo)
 {
-	t_time	print_timestamp;
-
-	print_timestamp = philo_print(PHILO_SLEEP, philo->id);
+	philo_print(PHILO_SLEEP, philo->id);
 	philo_thread_sleep_ms(get_data()->prog_args[time_to_sleep]);
-	return (print_timestamp);
 }
 
-t_time	philo_think(t_philo *philo)
+void	philo_think(t_philo *philo)
 {
-	return (philo_print(PHILO_THINK, philo->id));
+	philo_print(PHILO_THINK, philo->id);
 }
