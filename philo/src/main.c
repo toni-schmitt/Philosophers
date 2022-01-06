@@ -6,11 +6,19 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:48 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 18:38:43 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:29:27 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	free_data(t_data *data)
+{
+	ft_free((void *)&data->philos_data);
+	ft_free((void *)&data->forks);
+	ft_free((void *)&data->prog_args);
+	ft_free((void *)&data);
+}
 
 int	main(int argc, char *argv[])
 {
@@ -26,10 +34,10 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	set_data(data);
 	if (init_philos(data) == EXIT_FAILURE)
+	{
+		free_data(data);
 		return (EXIT_FAILURE);
-	ft_free((void *)&data->philos_data);
-	ft_free((void *)&data->forks);
-	ft_free((void *)&data->prog_args);
-	ft_free((void *)&data);
+	}
+	free_data(data);
 	return (EXIT_SUCCESS);
 }
