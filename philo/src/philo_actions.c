@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:02 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:39:38 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:45:45 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_time	philo_eat(t_philo *philo)
 
 	if (philo->left_fork == philo->right_fork)
 		return (handle_lonely_philo(philo));
-	if (take_forks(philo->id, philo->left_fork, philo->right_fork) == PHILO_DEAD)
+	if (take_forks(philo->id, philo->left_fork, philo->right_fork) == 125)
 		return (get_curr_time());
 	update_eating(philo, true);
 	philo->last_meal = philo_print(PHILO_EAT, philo->id);

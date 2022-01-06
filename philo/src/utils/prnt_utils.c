@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:55:43 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:39:53 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:42:31 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ t_time	philo_print(char *message, t_uint philo_id)
 
 	pthread_mutex_lock(&get_data()->print_mutex);
 	current_time = get_curr_time();
-	printf("%ld %d %s\n", current_time.ms - get_data()->start_time.ms, philo_id, message);
+	printf("%ld %d %s\n", \
+	current_time.ms - get_data()->start_time.ms, philo_id, message);
 	pthread_mutex_unlock(&get_data()->print_mutex);
 	return (current_time);
 }

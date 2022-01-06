@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:34:16 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:39:30 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:43:59 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,18 @@ static int	create_mutexes(t_data *data)
 
 static int	create_philos_data(t_data *data)
 {
-	t_uint	i;
+	t_uint			i;
+	const t_uint	no_of_philos = data->prog_args[0];
 
-	data->philos_data = ft_calloc(data->prog_args[no_of_philos] + 1, sizeof(*data->philos_data));
+	data->philos_data = ft_calloc(no_of_philos + 1, sizeof(*data->philos_data));
 	if (data->philos_data == NULL)
 		return (EXIT_FAILURE);
 	i = 0;
-	while (i < data->prog_args[no_of_philos])
+	while (i < no_of_philos)
 	{
 		data->philos_data[i].id = i + 1;
 		if (i == 0)
-			data->philos_data[i].left_fork = &data->forks[data->prog_args[no_of_philos] - 1];
+			data->philos_data[i].left_fork = &data->forks[no_of_philos - 1];
 		else
 			data->philos_data[i].left_fork = &data->forks[i - 1];
 		data->philos_data[i].right_fork = &data->forks[i];

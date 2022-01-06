@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:39:52 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:45:26 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static int	create_philo_threads(t_philo *philos, t_uint no_of_philos)
 	i = 0;
 	while (i < no_of_philos)
 	{
-		if (pthread_create(&philos[i].philos_thread, NULL, philo_queue, &philos[i]) != 0)
+		if (pthread_create(&philos[i].philos_thread, NULL, \
+			philo_queue, &philos[i]) != 0)
 		{
 			prnt_error("Error creating philo-thread", true);
 			return (EXIT_FAILURE);
@@ -120,7 +121,8 @@ static size_t	check_dead(t_data *data)
 		{
 			if (philo_is_idle(&data->philos_data[i]))
 			{
-				if (get_curr_time().ms - data->philos_data[i].last_meal.ms >= data->prog_args[time_to_die])
+				if (get_curr_time().ms - data->philos_data[i].last_meal.ms \
+				>= data->prog_args[time_to_die])
 				{
 					data->philo_died = true;
 					join_threads(data->philos_data);
@@ -147,7 +149,8 @@ void	*thread_woker(void *arg)
 
 	data = (t_data *)arg;
 	data->philo_died = false;
-	if (create_philo_threads(data->philos_data, data->prog_args[no_of_philos]) == EXIT_FAILURE)
+	if (create_philo_threads(data->philos_data, data->prog_args[no_of_philos]) \
+	== EXIT_FAILURE)
 		return ((void *)EXIT_FAILURE);
 	while (get_data()->waiting_in_queue != get_data()->prog_args[no_of_philos])
 		;

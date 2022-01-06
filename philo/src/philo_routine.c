@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:11 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:39:41 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:46:22 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	*philo_routine(t_philo *philo)
 {
-	t_uint		meals_eaten;
+	t_uint			meals_eaten;
 	const t_uint	no_of_min_meals = get_data()->prog_args[4];
-	const bool	no_of_min_meals_given = get_data()->prog_args[5];
+	const bool		no_of_min_meals_given = get_data()->prog_args[5];
 
 	meals_eaten = 0;
 	philo_think(philo);
