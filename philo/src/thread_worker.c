@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:27:53 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:39:52 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static void	*philo_queue(void *arg)
 	return (philo_routine(philo));
 }
 
-static int	create_philo_threads(t_philo *philos, uint no_of_philos)
+static int	create_philo_threads(t_philo *philos, t_uint no_of_philos)
 {
-	uint	i;
+	t_uint	i;
 
 	i = 0;
 	while (i < no_of_philos)
@@ -48,7 +48,7 @@ static int	create_philo_threads(t_philo *philos, uint no_of_philos)
 
 static void	join_threads(t_philo *philos)
 {
-	uint	i;
+	t_uint	i;
 
 	i = 0;
 	while (i < get_data()->prog_args[no_of_philos])
@@ -59,9 +59,9 @@ static void	join_threads(t_philo *philos)
 	}
 }
 
-static bool	no_one_hungry(t_philo *philos, uint no_of_philos)
+static bool	no_one_hungry(t_philo *philos, t_uint no_of_philos)
 {
-	uint	i;
+	t_uint	i;
 
 	i = 0;
 	while (i < no_of_philos)
@@ -96,9 +96,9 @@ bool	philo_is_idle(t_philo *philo)
 	return (true);
 }
 
-void	detach_threads(t_philo *philos, uint no_of_philos)
+void	detach_threads(t_philo *philos, t_uint no_of_philos)
 {
-	uint	i;
+	t_uint	i;
 
 	i = 0;
 	while (i < no_of_philos)
@@ -111,7 +111,7 @@ void	detach_threads(t_philo *philos, uint no_of_philos)
 
 static size_t	check_dead(t_data *data)
 {
-	uint	i;
+	t_uint	i;
 
 	while (true)
 	{

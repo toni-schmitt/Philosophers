@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:46:47 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 19:37:51 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:39:34 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static bool	is_numerical(char *str)
 	return (true);
 }
 
-uint	*get_prog_args(int argc, char *argv[])
+t_uint	*get_prog_args(int argc, char *argv[])
 {
-	uint	*prog_args;
+	t_uint	*prog_args;
 	int		i;
 
 	prog_args = ft_calloc(argc + 1, sizeof(*prog_args));

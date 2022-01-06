@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:34:16 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 20:38:59 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:39:30 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 #define ERROR_MUTEX_INIT "Error initializing mutexes\n"
 
-static t_mutex	*create_forks(uint no_of_forks)
+static t_mutex	*create_forks(t_uint no_of_forks)
 {
 	t_mutex	*forks;
-	uint	i;
+	t_uint	i;
 
 	forks = ft_calloc(no_of_forks + 1, sizeof(*forks));
 	if (forks == NULL)
@@ -53,7 +53,7 @@ static int	create_mutexes(t_data *data)
 
 static int	create_philos_data(t_data *data)
 {
-	uint	i;
+	t_uint	i;
 
 	data->philos_data = ft_calloc(data->prog_args[no_of_philos] + 1, sizeof(*data->philos_data));
 	if (data->philos_data == NULL)

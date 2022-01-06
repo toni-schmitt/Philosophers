@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 21:46:37 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:39:25 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // INCLUDES
 
+# include <sys/types.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <unistd.h>
@@ -28,6 +29,7 @@
 
 typedef pthread_mutex_t	t_mutex;
 typedef pthread_t		t_thread;
+typedef unsigned int	t_uint;
 
 // PHILO-STRUCTS
 
@@ -72,7 +74,7 @@ typedef struct s_shared_data
  */
 typedef struct s_philo
 {
-	uint		id;
+	t_uint		id;
 	bool		finished_eating;
 	t_mutex		finished_mutex;
 	bool		is_eating;
@@ -102,13 +104,13 @@ enum e_arg_index
 typedef struct s_data
 {
 	// PROGRAM-RELATED DATA
-	uint		*prog_args;
+	t_uint		*prog_args;
 	t_time		start_time;
 	t_mutex		print_mutex;
 	// PHILO-RELATED DATA
 	t_philo		*philos_data;
 	t_mutex		*forks;
-	uint		waiting_in_queue;
+	t_uint		waiting_in_queue;
 	t_mutex		philo_queue;
 	bool		philo_died;
 }	t_data;
@@ -134,13 +136,13 @@ t_time	philo_think(t_philo *philo);
 // PRINT UTILS
 
 void	prnt_error(char *message, bool exit_prog);
-t_time	philo_print(char *message, uint philo_id);
+t_time	philo_print(char *message, t_uint philo_id);
 
 // STRING UTILS
 
 void	*ft_calloc(size_t count, size_t size);
 bool	is_digit(char c);
-uint	atoui(char *str);
+t_uint	atoui(char *str);
 int		ft_strlen(char *str);
 void	*ft_free(void **ptr);
 

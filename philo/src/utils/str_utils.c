@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:51:12 by toni              #+#    #+#             */
-/*   Updated: 2022/01/03 23:43:20 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:39:55 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ bool	is_digit(char c)
 	return (false);
 }
 
-uint	atoui(char *str)
+t_uint	atoui(char *str)
 {
-	uint	n;
+	t_uint	n;
 
 	n = 0;
 	while (*str == ' ' || *str == '\t' || *str == '\n' \

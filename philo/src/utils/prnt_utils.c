@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:55:43 by toni              #+#    #+#             */
-/*   Updated: 2022/01/05 20:34:17 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:39:53 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	prnt_error(char *message, bool exit_prog)
  * @param  philo_id: Philo-ID from whom to print message
  * @retval Timestamp of printed message
  */
-t_time	philo_print(char *message, uint philo_id)
+t_time	philo_print(char *message, t_uint philo_id)
 {
 	t_time	current_time;
 

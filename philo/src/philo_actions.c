@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:02 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 00:29:55 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:39:38 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 #define PHILO_DEAD 125
 
-static void	give_forks(uint philo_id, t_mutex *left, t_mutex *right)
+static void	give_forks(t_uint philo_id, t_mutex *left, t_mutex *right)
 {
 	if (left != NULL)
 	{
@@ -32,7 +32,7 @@ static void	give_forks(uint philo_id, t_mutex *left, t_mutex *right)
 	(void)philo_id;
 }
 
-static int	take_forks(uint philo_id, t_mutex *left, t_mutex *right)
+static int	take_forks(t_uint philo_id, t_mutex *left, t_mutex *right)
 {
 	if (left == NULL || right == NULL)
 	{
