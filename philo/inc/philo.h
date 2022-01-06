@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:39:25 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 19:41:51 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 typedef pthread_mutex_t	t_mutex;
 typedef pthread_t		t_thread;
 typedef unsigned int	t_uint;
+typedef unsigned long	t_ulong;
 
 // PHILO-STRUCTS
 
@@ -38,7 +39,7 @@ typedef unsigned int	t_uint;
  */
 typedef struct s_time
 {
-	ulong			ms;
+	t_ulong			ms;
 	struct timeval	val;
 }	t_time;
 
@@ -148,10 +149,10 @@ void	*ft_free(void **ptr);
 
 // TIME UTILS
 
-ulong	timeval_to_ms(struct timeval time);
+t_ulong	timeval_to_ms(struct timeval time);
 t_time	get_curr_time(void);
 t_time	get_start_time(void);
-void	philo_thread_sleep_ms(ulong ms);
+void	philo_thread_sleep_ms(t_ulong ms);
 
 // GETTER / SETTER
 
