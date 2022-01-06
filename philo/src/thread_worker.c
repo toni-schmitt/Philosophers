@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 00:30:47 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/06 18:09:24 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ static void	*philo_queue(void *arg)
 	pthread_mutex_unlock(&get_data()->philo_queue);
 	while (get_data()->waiting_in_queue != get_data()->prog_args[no_of_philos])
 		;
+	pthread_mutex_lock(&get_data()->philo_queue);
+	philo->last_meal = get_data()->start_time;
+	pthread_mutex_unlock(&get_data()->philo_queue);
 	return (philo_routine(philo));
 }
 
@@ -63,27 +66,47 @@ static bool	no_one_hungry(t_philo *philos, uint no_of_philos)
 	i = 0;
 	while (i < no_of_philos)
 	{
+		pthread_mutex_lock(&philos[i].finished_mutex);
 		if (philos[i].finished_eating == false)
+		{
+			pthread_mutex_unlock(&philos[i].finished_mutex);
 			return (false);
+		}
+		pthread_mutex_unlock(&philos[i].finished_mutex);
 		i++;
 	}
 	return (true);
 }
 
-static bool	philo_is_idle(t_philo philo)
+bool	philo_is_idle(t_philo *philo)
 {
 	bool	finished_eating;
 	bool	is_eating;
 
-	pthread_mutex_lock(&philo.eating_mutex);
-	is_eating = philo.is_eating;
-	pthread_mutex_unlock(&philo.eating_mutex);
-	pthread_mutex_lock(&philo.finished_mutex);
-	finished_eating = philo.finished_eating;
-	pthread_mutex_unlock(&philo.finished_mutex);
-	if (finished_eating || is_eating)
+	pthread_mutex_lock(&philo->finished_mutex);
+	finished_eating = philo->finished_eating;
+	pthread_mutex_unlock(&philo->finished_mutex);
+	if (finished_eating)
+		return (false);
+	pthread_mutex_lock(&philo->eating_mutex);
+	is_eating = philo->is_eating;
+	pthread_mutex_unlock(&philo->eating_mutex);
+	if (is_eating)
 		return (false);
 	return (true);
+}
+
+void	detach_threads(t_philo *philos, uint no_of_philos)
+{
+	uint	i;
+
+	i = 0;
+	while (i < no_of_philos)
+	{
+		if (pthread_detach(philos[i].philos_thread) != 0)
+			prnt_error("Failed to detach thread", true);
+		i++;
+	}
 }
 
 static void	check_dead(t_data *data)
@@ -95,7 +118,7 @@ static void	check_dead(t_data *data)
 		i = 0;
 		while (i < data->prog_args[no_of_philos])
 		{
-			if (philo_is_idle(data->philos_data[i]))
+			if (philo_is_idle(&data->philos_data[i]))
 			{
 				if (get_curr_time().ms - data->philos_data[i].last_meal.ms >= data->prog_args[time_to_die])
 				{
@@ -110,9 +133,11 @@ static void	check_dead(t_data *data)
 		if (no_one_hungry(data->philos_data, data->prog_args[no_of_philos]))
 		{
 			join_threads(data->philos_data);
+			// detach_threads(data->philos_data, data->prog_args[no_of_philos]);
 			return ;
 		}
 	}
+	join_threads(data->philos_data);
 }
 
 void	*thread_woker(void *arg)
