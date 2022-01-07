@@ -80,7 +80,7 @@ static int	create_philos_data(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int	create_thread_worker(t_data *data)
+static size_t	create_thread_worker(t_data *data)
 {
 	t_thread	worker;
 	void		*worker_retval;
