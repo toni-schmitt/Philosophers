@@ -6,13 +6,13 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 00:05:20 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 01:43:41 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 18:02:54 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static t_data	*get_data_(t_data *data, bool set)
+static inline t_data	*get_data_(t_data *data, bool set)
 {
 	static t_data	*static_data = NULL;
 
