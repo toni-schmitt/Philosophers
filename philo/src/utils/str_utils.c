@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-int	ft_strlen(char *str)
+int	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -56,7 +56,7 @@ void	*ft_free(void **ptr)
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	int		full_size;
+	size_t	full_size;
 	void	*buf;
 
 	full_size = size * count;
