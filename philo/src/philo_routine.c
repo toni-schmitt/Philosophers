@@ -6,11 +6,21 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:11 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 03:39:05 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 20:41:54 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+bool	one_philo_died(void)
+{
+	bool	retval;
+
+	pthread_mutex_lock(&get_data()->died_mutex);
+	retval = get_data()->philo_died;
+	pthread_mutex_unlock(&get_data()->died_mutex);
+	return (retval);
+}
 
 static void	*philo_doze(t_philo *philo)
 {

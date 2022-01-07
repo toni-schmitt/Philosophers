@@ -6,71 +6,16 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 20:10:56 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 20:47:55 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static bool	philos_waiting_in_queue(void)
-{
-	pthread_mutex_lock(&get_data()->philo_queue);
-	if (get_data()->waiting_in_queue == get_data()->prog_args[no_of_philos])
-	{
-		pthread_mutex_unlock(&get_data()->philo_queue);
-		return (true);
-	}
-	pthread_mutex_unlock(&get_data()->philo_queue);
-	return (false);
-}
-
-static void	*philo_queue(void *arg)
-{
-	t_philo		*philo;
-
-	philo = (t_philo *)arg;
-	pthread_mutex_lock(&get_data()->philo_queue);
-	get_data()->start_time = get_curr_time();
-	get_data()->waiting_in_queue++;
-	pthread_mutex_unlock(&get_data()->philo_queue);
-	while (philos_waiting_in_queue() == false)
-		usleep(1);
-	pthread_mutex_lock(&get_data()->philo_queue);
-	philo->last_meal = get_data()->start_time;
-	pthread_mutex_unlock(&get_data()->philo_queue);
-	return (philo_routine(philo));
-}
-
-static int	create_philo_threads(t_philo *philos, t_uint no_of_philos)
-{
-	t_uint	i;
-
-	i = 0;
-	while (i < no_of_philos)
-	{
-		if (pthread_create(&philos[i].philos_thread, NULL, \
-			philo_queue, &philos[i]) != 0)
-		{
-			prnt_error("Error creating philo-thread", true);
-			return (EXIT_FAILURE);
-		}
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
-
-static void	join_threads(t_philo *philos)
-{
-	t_uint	i;
-
-	i = 0;
-	while (i < get_data()->prog_args[no_of_philos])
-	{
-		if (pthread_join(philos[i].philos_thread, NULL) != 0)
-			prnt_error("Failed to join thread", true);
-		i++;
-	}
-}
+bool	philos_waiting_in_queue(void);
+void	*philo_queue(void *arg);
+int		create_philo_threads(t_philo *philos, t_uint no_of_philos);
+void	join_threads(t_philo *philos);
 
 static bool	no_one_hungry(t_philo *philos, t_uint no_of_philos)
 {
@@ -109,19 +54,6 @@ static bool	philo_is_idle(t_philo *philo)
 	return (true);
 }
 
-void	detach_threads(t_philo *philos, t_uint no_of_philos)
-{
-	t_uint	i;
-
-	i = 0;
-	while (i < no_of_philos)
-	{
-		if (pthread_detach(philos[i].philos_thread) != 0)
-			prnt_error("Failed to detach thread", true);
-		i++;
-	}
-}
-
 static inline bool	philo_is_dead(t_philo *philo, const t_uint die_time)
 {
 	return (
@@ -138,8 +70,8 @@ static size_t	check_dead(t_data *data)
 
 	while (true)
 	{
-		i = 0;
-		while (i < data->prog_args[no_of_philos])
+		i = -1;
+		while (++i < data->prog_args[no_of_philos])
 		{
 			if (philo_is_dead(&data->philos_data[i], die_time))
 			{
@@ -151,7 +83,6 @@ static size_t	check_dead(t_data *data)
 				return (EXIT_FAILURE);
 			}
 			usleep(100);
-			i++;
 		}
 		if (no_one_hungry(data->philos_data, data->prog_args[no_of_philos]))
 		{

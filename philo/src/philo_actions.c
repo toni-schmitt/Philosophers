@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:02 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 20:10:00 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 20:42:31 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@
 #define PHILO_THINK "is thinking"
 
 #define PHILO_DEAD 125
-
-bool	one_philo_died(void)
-{
-	bool	retval;
-
-	pthread_mutex_lock(&get_data()->died_mutex);
-	retval = get_data()->philo_died;
-	pthread_mutex_unlock(&get_data()->died_mutex);
-	return (retval);
-}
 
 static void	give_forks(t_uint philo_id, t_mutex *left, t_mutex *right)
 {
@@ -69,35 +59,26 @@ static int	take_forks(t_uint philo_id, t_mutex *left, t_mutex *right)
 	return (EXIT_SUCCESS);
 }
 
-static void	update_eating(t_philo *philo, bool new)
-{
-	pthread_mutex_lock(&philo->eating_mutex);
-	philo->is_eating = new;
-	pthread_mutex_unlock(&philo->eating_mutex);
-}
-
-static t_time	handle_lonely_philo(t_philo *philo)
-{
-	pthread_mutex_lock(philo->left_fork);
-	philo_print(PHILO_FORK, philo->id);
-	philo_thread_sleep_ms(get_data()->prog_args[time_to_die]);
-	pthread_mutex_unlock(philo->right_fork);
-	return (get_data()->start_time);
-}
-
 void	philo_eat(t_philo *philo)
 {
 	if (philo->left_fork == philo->right_fork)
-	{
-		handle_lonely_philo(philo);
+	{	
+		pthread_mutex_lock(philo->left_fork);
+		philo_print(PHILO_FORK, philo->id);
+		philo_thread_sleep_ms(get_data()->prog_args[time_to_die]);
+		pthread_mutex_unlock(philo->right_fork);
 		return ;
 	}
 	if (take_forks(philo->id, philo->left_fork, philo->right_fork) == 125)
 		return ;
-	update_eating(philo, true);
+	pthread_mutex_lock(&philo->eating_mutex);
+	philo->is_eating = true;
+	pthread_mutex_unlock(&philo->eating_mutex);
 	philo->last_meal = philo_print(PHILO_EAT, philo->id);
 	philo_thread_sleep_ms(get_data()->prog_args[time_to_eat]);
-	update_eating(philo, false);
+	pthread_mutex_lock(&philo->eating_mutex);
+	philo->is_eating = false;
+	pthread_mutex_unlock(&philo->eating_mutex);
 	give_forks(philo->id, philo->left_fork, philo->right_fork);
 }
 

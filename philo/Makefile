@@ -6,7 +6,7 @@
 #    By: toni <toni@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 03:16:14 by toni              #+#    #+#              #
-#    Updated: 2022/01/07 18:31:33 by toni             ###   ########.fr        #
+#    Updated: 2022/01/07 20:46:14 by toni             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ OBJ_PATH = $(BUILD_PATH)obj/
 
 # FILES
 SRC := main.c parse_input.c init_philos.c thread_worker.c philo_actions.c philo_routine.c \
-		utils/str_utils.c utils/prnt_utils.c utils/time_utils.c utils/getter_setter.c
+		utils/str_utils.c utils/prnt_utils.c utils/time_utils.c utils/getter_setter.c utils/thread_worker_utils.c
 SRC := $(addprefix $(SRC_PATH), $(SRC))
 
 OBJ := $(patsubst $(SRC_PATH)%.c, $(OBJ_PATH)%.o, $(SRC))

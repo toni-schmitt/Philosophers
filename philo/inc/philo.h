@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 01:52:02 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 20:40:10 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,9 @@ enum e_arg_index
  */
 typedef struct s_data
 {
-	// PROGRAM-RELATED DATA
 	t_uint		*prog_args;
 	t_time		start_time;
 	t_mutex		print_mutex;
-	// PHILO-RELATED DATA
 	t_philo		*philos_data;
 	t_mutex		*forks;
 	t_uint		waiting_in_queue;
