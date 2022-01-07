@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:11 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 01:51:25 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 03:39:05 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,4 @@ void	*philo_routine(t_philo *philo)
 		if (philo->finished_eating)
 			return (NULL);
 	}
-	return (PTHREAD_CANCELED);
 }
