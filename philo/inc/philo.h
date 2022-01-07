@@ -43,33 +43,6 @@ typedef struct s_time
 	struct timeval	val;
 }	t_time;
 
-typedef enum e_sh_data_type
-{
-	VOID_P,
-	INT,
-	BOOL,
-	T_TIME,
-}	t_sh_data_type;
-
-typedef union u_shared_datas_data
-{
-	void	*p;
-	int		i;
-	bool	b;
-	t_time	t;
-}	t_sh_data;
-
-/**
- * @brief  For accessing data safely through threads with mutexes
- * @note   Always check for type of data!
- */
-typedef struct s_shared_data
-{
-	t_sh_data_type	type;
-	t_sh_data		data;
-	t_mutex			mutex;
-}	t_shared;
-
 /**
  * @brief  Holds data of a philosopher
  */
@@ -144,14 +117,14 @@ t_time	philo_print(char *message, t_uint philo_id);
 void	*ft_calloc(size_t count, size_t size);
 bool	is_digit(char c);
 t_uint	atoui(char *str);
-int		ft_strlen(char *str);
+int		ft_strlen(const char *str);
 void	*ft_free(void **ptr);
 
 // TIME UTILS
 
 t_ulong	timeval_to_ms(struct timeval time);
 t_time	get_curr_time(void);
-t_time	get_start_time(void);
+
 void	philo_thread_sleep_ms(t_ulong ms);
 
 // GETTER / SETTER
