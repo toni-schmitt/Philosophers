@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:34:16 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:43:59 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 01:48:38 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int	create_mutexes(t_data *data)
 	if (data->forks == NULL)
 		return (EXIT_FAILURE);
 	if (pthread_mutex_init(&data->print_mutex, NULL) != 0 \
-	|| pthread_mutex_init(&data->philo_queue, NULL) != 0)
+	|| pthread_mutex_init(&data->philo_queue, NULL) != 0 \
+	|| pthread_mutex_init(&data->died_mutex, NULL) != 0)
 	{
 		prnt_error(ERROR_MUTEX_INIT, false);
 		ft_free((void *)&data->forks);

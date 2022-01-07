@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:02 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:56:31 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 01:51:17 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 #define PHILO_THINK "is thinking"
 
 #define PHILO_DEAD 125
+
+bool	one_philo_died(void)
+{
+	bool	retval;
+
+	pthread_mutex_lock(&get_data()->died_mutex);
+	retval = get_data()->philo_died;
+	pthread_mutex_unlock(&get_data()->died_mutex);
+	return (retval);
+}
 
 static void	give_forks(t_uint philo_id, t_mutex *left, t_mutex *right)
 {
@@ -39,17 +49,17 @@ static int	take_forks(t_uint philo_id, t_mutex *left, t_mutex *right)
 		prnt_error("Fatal error: Address cannot be accessed\n", true);
 		return (EXIT_FAILURE);
 	}
-	if (get_data()->philo_died)
+	if (one_philo_died())
 		return (PHILO_DEAD);
 	pthread_mutex_lock(left);
-	if (get_data()->philo_died)
+	if (one_philo_died())
 	{
 		give_forks(philo_id, left, NULL);
 		return (PHILO_DEAD);
 	}
 	philo_print(PHILO_FORK, philo_id);
 	pthread_mutex_lock(right);
-	if (get_data()->philo_died)
+	if (one_philo_died())
 	{
 		give_forks(philo_id, left, right);
 		return (PHILO_DEAD);

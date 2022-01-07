@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:11 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:56:46 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 01:51:25 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static void	*philo_doze(t_philo *philo)
 {
 	philo_sleep(philo);
-	if (get_data()->philo_died)
+	if (one_philo_died())
 		return (PTHREAD_CANCELED);
 	philo_think(philo);
-	if (get_data()->philo_died)
+	if (one_philo_died())
 		return (PTHREAD_CANCELED);
 	return (NULL);
 }
@@ -36,7 +36,7 @@ void	*philo_routine(t_philo *philo)
 	while (true)
 	{
 		philo_eat(philo);
-		if (get_data()->philo_died)
+		if (one_philo_died())
 			return (PTHREAD_CANCELED);
 		if ((no_of_min_meals_given) && (++meals_eaten >= no_of_min_meals))
 		{

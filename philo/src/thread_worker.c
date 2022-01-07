@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 01:43:22 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 01:49:07 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,9 @@ static size_t	check_dead(t_data *data)
 			if (philo_is_idle(&data->philos_data[i]) && \
 			(get_curr_time().ms - data->philos_data[i].last_meal.ms > die_time))
 			{
+				pthread_mutex_lock(&get_data()->died_mutex);
 				data->philo_died = true;
+				pthread_mutex_unlock(&get_data()->died_mutex);
 				join_threads(data->philos_data);
 				philo_print("is dead", i + 1);
 				return (EXIT_FAILURE);
