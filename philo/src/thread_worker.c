@@ -12,6 +12,18 @@
 
 #include "philo.h"
 
+static bool philos_waiting_in_queue(void)
+{
+    pthread_mutex_lock(&get_data()->philo_queue);
+    if (get_data()->waiting_in_queue == get_data()->prog_args[no_of_philos])
+    {
+        pthread_mutex_unlock(&get_data()->philo_queue);
+        return  (true);
+    }
+    pthread_mutex_unlock(&get_data()->philo_queue);
+    return  (false);
+}
+
 static void	*philo_queue(void *arg)
 {
 	t_philo		*philo;
@@ -21,11 +33,13 @@ static void	*philo_queue(void *arg)
 	get_data()->start_time = get_curr_time();
 	get_data()->waiting_in_queue++;
 	pthread_mutex_unlock(&get_data()->philo_queue);
-	while (get_data()->waiting_in_queue != get_data()->prog_args[no_of_philos])
-		;
-	pthread_mutex_lock(&get_data()->philo_queue);
-	philo->last_meal = get_data()->start_time;
-	pthread_mutex_unlock(&get_data()->philo_queue);
+    while (philos_waiting_in_queue() == false)
+        usleep(1);
+	//while (get_data()->waiting_in_queue != get_data()->prog_args[no_of_philos])
+	//	;
+    pthread_mutex_lock(&get_data()->philo_queue);
+    philo->last_meal = get_data()->start_time;
+    pthread_mutex_unlock(&get_data()->philo_queue);
 	return (philo_routine(philo));
 }
 
@@ -139,8 +153,6 @@ static size_t	check_dead(t_data *data)
 			return (EXIT_SUCCESS);
 		}
 	}
-	join_threads(data->philos_data);
-	return (EXIT_FAILURE);
 }
 
 void	*thread_woker(void *arg)
@@ -152,8 +164,8 @@ void	*thread_woker(void *arg)
 	if (create_philo_threads(data->philos_data, data->prog_args[no_of_philos]) \
 	== EXIT_FAILURE)
 		return ((void *)EXIT_FAILURE);
-	while (get_data()->waiting_in_queue != get_data()->prog_args[no_of_philos])
-		;
-	philo_thread_sleep_ms(get_data()->prog_args[time_to_die] / 2);
+	while (philos_waiting_in_queue() == false)
+        usleep(1);
+	usleep((get_data()->prog_args[time_to_die] / 2) * 1000);
 	return ((void *)check_dead(data));
 }
