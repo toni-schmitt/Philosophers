@@ -6,22 +6,22 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:45:26 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 01:43:22 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static bool philos_waiting_in_queue(void)
+static bool	philos_waiting_in_queue(void)
 {
-    pthread_mutex_lock(&get_data()->philo_queue);
-    if (get_data()->waiting_in_queue == get_data()->prog_args[no_of_philos])
-    {
-        pthread_mutex_unlock(&get_data()->philo_queue);
-        return  (true);
-    }
-    pthread_mutex_unlock(&get_data()->philo_queue);
-    return  (false);
+	pthread_mutex_lock(&get_data()->philo_queue);
+	if (get_data()->waiting_in_queue == get_data()->prog_args[no_of_philos])
+	{
+		pthread_mutex_unlock(&get_data()->philo_queue);
+		return (true);
+	}
+	pthread_mutex_unlock(&get_data()->philo_queue);
+	return (false);
 }
 
 static void	*philo_queue(void *arg)
@@ -33,13 +33,11 @@ static void	*philo_queue(void *arg)
 	get_data()->start_time = get_curr_time();
 	get_data()->waiting_in_queue++;
 	pthread_mutex_unlock(&get_data()->philo_queue);
-    while (philos_waiting_in_queue() == false)
-        usleep(1);
-	//while (get_data()->waiting_in_queue != get_data()->prog_args[no_of_philos])
-	//	;
-    pthread_mutex_lock(&get_data()->philo_queue);
-    philo->last_meal = get_data()->start_time;
-    pthread_mutex_unlock(&get_data()->philo_queue);
+	while (philos_waiting_in_queue() == false)
+		usleep(1);
+	pthread_mutex_lock(&get_data()->philo_queue);
+	philo->last_meal = get_data()->start_time;
+	pthread_mutex_unlock(&get_data()->philo_queue);
 	return (philo_routine(philo));
 }
 
@@ -126,23 +124,21 @@ void	detach_threads(t_philo *philos, t_uint no_of_philos)
 
 static size_t	check_dead(t_data *data)
 {
-	t_uint	i;
+	t_uint			i;
+	const t_uint	die_time = data->prog_args[1];
 
 	while (true)
 	{
 		i = 0;
 		while (i < data->prog_args[no_of_philos])
 		{
-			if (philo_is_idle(&data->philos_data[i]))
+			if (philo_is_idle(&data->philos_data[i]) && \
+			(get_curr_time().ms - data->philos_data[i].last_meal.ms > die_time))
 			{
-				if (get_curr_time().ms - data->philos_data[i].last_meal.ms \
-				>= data->prog_args[time_to_die])
-				{
-					data->philo_died = true;
-					join_threads(data->philos_data);
-					philo_print("is dead", i + 1);
-					return (EXIT_FAILURE);
-				}
+				data->philo_died = true;
+				join_threads(data->philos_data);
+				philo_print("is dead", i + 1);
+				return (EXIT_FAILURE);
 			}
 			i++;
 		}
@@ -165,7 +161,7 @@ void	*thread_woker(void *arg)
 	== EXIT_FAILURE)
 		return ((void *)EXIT_FAILURE);
 	while (philos_waiting_in_queue() == false)
-        usleep(1);
+		usleep(1);
 	usleep((get_data()->prog_args[time_to_die] / 2) * 1000);
 	return ((void *)check_dead(data));
 }
