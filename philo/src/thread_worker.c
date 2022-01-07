@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 18:19:50 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 20:10:56 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ static size_t	check_dead(t_data *data)
 				philo_print("is dead", i + 1);
 				return (EXIT_FAILURE);
 			}
+			usleep(100);
 			i++;
 		}
 		if (no_one_hungry(data->philos_data, data->prog_args[no_of_philos]))
@@ -170,7 +171,7 @@ void	*thread_woker(void *arg)
 	== EXIT_FAILURE)
 		return ((void *)EXIT_FAILURE);
 	while (philos_waiting_in_queue() == false)
-		usleep(1);
+		usleep(100);
 	usleep((get_data()->prog_args[time_to_die] / 2) * 1000);
 	return ((void *)check_dead(data));
 }

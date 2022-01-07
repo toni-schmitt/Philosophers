@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:02 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 01:51:17 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 20:10:00 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	take_forks(t_uint philo_id, t_mutex *left, t_mutex *right)
 	}
 	philo_print(PHILO_FORK, philo_id);
 	pthread_mutex_lock(right);
+	usleep(200);
 	if (one_philo_died())
 	{
 		give_forks(philo_id, left, right);
@@ -102,11 +103,17 @@ void	philo_eat(t_philo *philo)
 
 void	philo_sleep(t_philo *philo)
 {
+	usleep(100);
+	if (one_philo_died())
+		return ;
 	philo_print(PHILO_SLEEP, philo->id);
 	philo_thread_sleep_ms(get_data()->prog_args[time_to_sleep]);
 }
 
 void	philo_think(t_philo *philo)
 {
+	usleep(100);
+	if (one_philo_died())
+		return ;
 	philo_print(PHILO_THINK, philo->id);
 }
