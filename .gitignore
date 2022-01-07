@@ -10,8 +10,9 @@
 # Unignore Makefile
 !Makefile
 
-# Visual Studio Code realted files
+# IDE realted files
 .vscode
+.idea
 
 # Prerequisites
 *.d
