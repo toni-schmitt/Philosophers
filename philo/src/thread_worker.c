@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 01:49:07 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/07 18:19:50 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static bool	no_one_hungry(t_philo *philos, t_uint no_of_philos)
 	return (true);
 }
 
-bool	philo_is_idle(t_philo *philo)
+static bool	philo_is_idle(t_philo *philo)
 {
 	bool	finished_eating;
 	bool	is_eating;
@@ -122,6 +122,15 @@ void	detach_threads(t_philo *philos, t_uint no_of_philos)
 	}
 }
 
+static inline bool	philo_is_dead(t_philo *philo, const t_uint die_time)
+{
+	return (
+		(philo_is_idle(philo) \
+		&& (get_curr_time().ms - philo->last_meal.ms > die_time) \
+		&& philo_is_idle(philo)) \
+		);
+}
+
 static size_t	check_dead(t_data *data)
 {
 	t_uint			i;
@@ -132,8 +141,7 @@ static size_t	check_dead(t_data *data)
 		i = 0;
 		while (i < data->prog_args[no_of_philos])
 		{
-			if (philo_is_idle(&data->philos_data[i]) && \
-			(get_curr_time().ms - data->philos_data[i].last_meal.ms > die_time))
+			if (philo_is_dead(&data->philos_data[i], die_time))
 			{
 				pthread_mutex_lock(&get_data()->died_mutex);
 				data->philo_died = true;
@@ -147,7 +155,6 @@ static size_t	check_dead(t_data *data)
 		if (no_one_hungry(data->philos_data, data->prog_args[no_of_philos]))
 		{
 			join_threads(data->philos_data);
-			// detach_threads(data->philos_data, data->prog_args[no_of_philos]);
 			return (EXIT_SUCCESS);
 		}
 	}
