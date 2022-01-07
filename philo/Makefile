@@ -6,7 +6,7 @@
 #    By: toni <toni@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 03:16:14 by toni              #+#    #+#              #
-#    Updated: 2022/01/05 20:11:17 by toni             ###   ########.fr        #
+#    Updated: 2022/01/07 18:31:33 by toni             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ BIN = $(BUILD_PATH)philo
 
 # COMPILER / FLAGS
 CC = gcc
-CFLAGS := -Wall -Werror -Wextra -I ./inc/ -O2
+CFLAGS := -Wall -Werror -Wextra -I ./inc/ -O1
 
 # ADD PTHREAD LIB ONLY ON LINUX TO COMPILATION FLAGS
 ifeq ($(shell uname -s),Linux)
