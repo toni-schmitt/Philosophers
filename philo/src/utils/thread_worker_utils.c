@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 20:44:26 by toni              #+#    #+#             */
-/*   Updated: 2022/01/11 21:03:48 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/11 21:27:27 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ void	*philo_queue(void *arg)
 	return (philo_routine(philo));
 }
 
-int_fast32_t	create_philo_threads(t_philo *philos, uint_fast32_t no_of_philos)
+int_fast32_t	create_philo_threads(
+	t_philo *philos, uint_fast32_t no_of_philos
+	)
 {
 	uint_fast32_t	i;
 

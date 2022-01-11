@@ -6,16 +6,18 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:58:39 by toni              #+#    #+#             */
-/*   Updated: 2022/01/11 21:03:44 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/11 21:29:07 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	philos_waiting_in_queue(void);
-void	*philo_queue(void *arg);
-int_fast32_t		create_philo_threads(t_philo *philos, uint_fast32_t no_of_philos);
-void	join_threads(t_philo *philos);
+bool			philos_waiting_in_queue(void);
+void			*philo_queue(void *arg);
+int_fast32_t	create_philo_threads( \
+	t_philo *philos, uint_fast32_t no_of_philos \
+	);
+void			join_threads(t_philo *philos);
 
 static bool	no_one_hungry(t_philo *philos, uint_fast32_t no_of_philos)
 {
@@ -66,7 +68,7 @@ static inline bool	philo_is_dead(t_philo *philo, const uint_fast32_t die_time)
 static size_t	check_dead(t_data *data)
 {
 	uint_fast32_t			i;
-	const uint_fast32_t	die_time = data->prog_args[1];
+	const uint_fast32_t		die_time = data->prog_args[1];
 
 	while (true)
 	{

@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:34:16 by toni              #+#    #+#             */
-/*   Updated: 2022/01/11 21:03:28 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/11 21:27:45 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static t_mutex	*create_forks(uint_fast32_t no_of_forks)
 {
-	t_mutex	*forks;
+	t_mutex			*forks;
 	uint_fast32_t	i;
 
 	forks = ft_calloc(no_of_forks + 1, sizeof(*forks));
@@ -55,7 +55,7 @@ static int_fast32_t	create_mutexes(t_data *data)
 static int_fast32_t	create_philos_data(t_data *data)
 {
 	uint_fast32_t			i;
-	const uint_fast32_t	no_of_philos = data->prog_args[0];
+	const uint_fast32_t		no_of_philos = data->prog_args[0];
 
 	data->philos_data = ft_calloc(no_of_philos + 1, sizeof(*data->philos_data));
 	if (data->philos_data == NULL)

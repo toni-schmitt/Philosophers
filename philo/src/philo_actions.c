@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:02 by toni              #+#    #+#             */
-/*   Updated: 2022/01/11 21:03:42 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/11 21:29:16 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ static void	give_forks(uint_fast32_t philo_id, t_mutex *left, t_mutex *right)
 	(void)philo_id;
 }
 
-static int_fast32_t	take_forks(uint_fast32_t philo_id, t_mutex *left, t_mutex *right)
+static int_fast32_t	take_forks(
+	uint_fast32_t philo_id, t_mutex *left, t_mutex *right
+	)
 {
 	if (left == NULL || right == NULL)
 	{
