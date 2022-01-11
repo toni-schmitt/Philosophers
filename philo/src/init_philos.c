@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 23:34:16 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 01:48:38 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/11 21:03:28 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 #define ERROR_MUTEX_INIT "Error initializing mutexes\n"
 
-static t_mutex	*create_forks(t_uint no_of_forks)
+static t_mutex	*create_forks(uint_fast32_t no_of_forks)
 {
 	t_mutex	*forks;
-	t_uint	i;
+	uint_fast32_t	i;
 
 	forks = ft_calloc(no_of_forks + 1, sizeof(*forks));
 	if (forks == NULL)
@@ -36,7 +36,7 @@ static t_mutex	*create_forks(t_uint no_of_forks)
 	return (forks);
 }
 
-static int	create_mutexes(t_data *data)
+static int_fast32_t	create_mutexes(t_data *data)
 {
 	data->forks = create_forks(data->prog_args[no_of_philos]);
 	if (data->forks == NULL)
@@ -52,10 +52,10 @@ static int	create_mutexes(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static int	create_philos_data(t_data *data)
+static int_fast32_t	create_philos_data(t_data *data)
 {
-	t_uint			i;
-	const t_uint	no_of_philos = data->prog_args[0];
+	uint_fast32_t			i;
+	const uint_fast32_t	no_of_philos = data->prog_args[0];
 
 	data->philos_data = ft_calloc(no_of_philos + 1, sizeof(*data->philos_data));
 	if (data->philos_data == NULL)
@@ -99,7 +99,7 @@ static size_t	create_thread_worker(t_data *data)
 	return ((size_t)worker_retval);
 }
 
-int	init_philos(t_data *data)
+int_fast32_t	init_philos(t_data *data)
 {
 	if (create_mutexes(data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);

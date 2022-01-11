@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:55:43 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:42:31 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/11 21:01:53 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	prnt_error(char *message, bool exit_prog)
  * @param  philo_id: Philo-ID from whom to print message
  * @retval Timestamp of printed message
  */
-t_time	philo_print(char *message, t_uint philo_id)
+t_time	philo_print(char *message, uint_fast32_t philo_id)
 {
 	t_time	current_time;
 
 	pthread_mutex_lock(&get_data()->print_mutex);
 	current_time = get_curr_time();
-	printf("%ld %d %s\n", \
+	printf("%ld %" PRIu64 " %s\n", \
 	current_time.ms - get_data()->start_time.ms, philo_id, message);
 	pthread_mutex_unlock(&get_data()->print_mutex);
 	return (current_time);

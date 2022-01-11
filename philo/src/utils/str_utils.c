@@ -6,15 +6,15 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:51:12 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:39:55 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/11 21:03:46 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_strlen(const char *str)
+int_fast32_t	ft_strlen(const char *str)
 {
-	int	i;
+	int_fast32_t	i;
 
 	i = 0;
 	while (str && str[i])
@@ -29,9 +29,9 @@ bool	is_digit(char c)
 	return (false);
 }
 
-t_uint	atoui(char *str)
+uint_fast32_t	atoui(char *str)
 {
-	t_uint	n;
+	uint_fast32_t	n;
 
 	n = 0;
 	while (*str == ' ' || *str == '\t' || *str == '\n' \

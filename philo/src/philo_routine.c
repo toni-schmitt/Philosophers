@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 14:51:11 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 20:41:54 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/11 21:01:53 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static void	*philo_doze(t_philo *philo)
 
 void	*philo_routine(t_philo *philo)
 {
-	t_uint			meals_eaten;
-	const t_uint	no_of_min_meals = get_data()->prog_args[4];
+	uint_fast32_t			meals_eaten;
+	const uint_fast32_t	no_of_min_meals = get_data()->prog_args[4];
 	const bool		no_of_min_meals_given = get_data()->prog_args[5];
 
 	meals_eaten = 0;

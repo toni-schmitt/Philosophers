@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:46:47 by toni              #+#    #+#             */
-/*   Updated: 2022/01/06 19:39:34 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/11 21:03:40 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	is_numerical(char *str)
 {
-	int	i;
+	int_fast32_t	i;
 
 	i = 0;
 	while (str[i])
@@ -26,10 +26,10 @@ static bool	is_numerical(char *str)
 	return (true);
 }
 
-t_uint	*get_prog_args(int argc, char *argv[])
+uint_fast32_t	*get_prog_args(int_fast32_t argc, char *argv[])
 {
-	t_uint	*prog_args;
-	int		i;
+	uint_fast32_t	*prog_args;
+	int_fast32_t		i;
 
 	prog_args = ft_calloc(argc + 1, sizeof(*prog_args));
 	if (prog_args == NULL)
@@ -54,7 +54,7 @@ t_uint	*get_prog_args(int argc, char *argv[])
 	return (prog_args);
 }
 
-t_data	*parse_input(int argc, char *argv[])
+t_data	*parse_input(int_fast32_t argc, char *argv[])
 {
 	t_data	*data;
 

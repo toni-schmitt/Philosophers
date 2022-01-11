@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 03:15:31 by toni              #+#    #+#             */
-/*   Updated: 2022/01/07 20:40:10 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/11 21:04:08 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 # include <string.h>
 # include <pthread.h>
 # include <limits.h>
+# include <stdint.h>
+# include <inttypes.h>
 # include <sys/time.h>
 
 // TYPE DEFINITIONS
 
 typedef pthread_mutex_t	t_mutex;
 typedef pthread_t		t_thread;
-typedef unsigned int	t_uint;
-typedef unsigned long	t_ulong;
 
 // PHILO-STRUCTS
 
@@ -39,7 +39,7 @@ typedef unsigned long	t_ulong;
  */
 typedef struct s_time
 {
-	t_ulong			ms;
+	uint_fast64_t			ms;
 	struct timeval	val;
 }	t_time;
 
@@ -48,7 +48,7 @@ typedef struct s_time
  */
 typedef struct s_philo
 {
-	t_uint		id;
+	uint_fast32_t		id;
 	bool		finished_eating;
 	t_mutex		finished_mutex;
 	bool		is_eating;
@@ -77,12 +77,12 @@ enum e_arg_index
  */
 typedef struct s_data
 {
-	t_uint		*prog_args;
+	uint_fast32_t		*prog_args;
 	t_time		start_time;
 	t_mutex		print_mutex;
 	t_philo		*philos_data;
 	t_mutex		*forks;
-	t_uint		waiting_in_queue;
+	uint_fast32_t		waiting_in_queue;
 	t_mutex		philo_queue;
 	bool		philo_died;
 	t_mutex		died_mutex;
@@ -90,8 +90,8 @@ typedef struct s_data
 
 // FUNCTIONS
 
-t_data	*parse_input(int argc, char *argv[]);
-int		init_philos(t_data *data);
+t_data	*parse_input(int_fast32_t argc, char *argv[]);
+int_fast32_t		init_philos(t_data *data);
 
 // THREAD ROUTINES
 
@@ -110,22 +110,22 @@ bool	one_philo_died(void);
 // PRINT UTILS
 
 void	prnt_error(char *message, bool exit_prog);
-t_time	philo_print(char *message, t_uint philo_id);
+t_time	philo_print(char *message, uint_fast32_t philo_id);
 
 // STRING UTILS
 
 void	*ft_calloc(size_t count, size_t size);
 bool	is_digit(char c);
-t_uint	atoui(char *str);
-int		ft_strlen(const char *str);
+uint_fast32_t	atoui(char *str);
+int_fast32_t		ft_strlen(const char *str);
 void	*ft_free(void **ptr);
 
 // TIME UTILS
 
-t_ulong	timeval_to_ms(struct timeval time);
+uint_fast64_t	timeval_to_ms(struct timeval time);
 t_time	get_curr_time(void);
 
-void	philo_thread_sleep_ms(t_ulong ms);
+void	philo_thread_sleep_ms(uint_fast64_t ms);
 
 // GETTER / SETTER
 
