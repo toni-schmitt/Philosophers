@@ -6,7 +6,7 @@
 /*   By: toni <toni@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 21:55:43 by toni              #+#    #+#             */
-/*   Updated: 2022/01/11 21:01:53 by toni             ###   ########.fr       */
+/*   Updated: 2022/01/24 01:58:36 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_time	philo_print(char *message, uint_fast32_t philo_id)
 
 	pthread_mutex_lock(&get_data()->print_mutex);
 	current_time = get_curr_time();
-	printf("%ld %" PRIu64 " %s\n", \
+	printf("%"PRIuFAST64" %"PRIuFAST32" %s\n", \
 	current_time.ms - get_data()->start_time.ms, philo_id, message);
 	pthread_mutex_unlock(&get_data()->print_mutex);
 	return (current_time);
